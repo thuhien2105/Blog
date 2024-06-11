@@ -1,8 +1,10 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_USERNAME = "${credentials('docker_hub').username}"
-        DOCKER_HUB_PASSWORD = "${credentials('docker_hub').password}"
+        // Sử dụng withCredentials để truy cập thông tin username và password từ credentials
+        DOCKER_HUB_CREDENTIALS = credentials('docker_hub')
+        DOCKER_HUB_USERNAME = DOCKER_HUB_CREDENTIALS.username
+        DOCKER_HUB_PASSWORD = DOCKER_HUB_CREDENTIALS.password
     }
     stages {
         stage('Build') {
